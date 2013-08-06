@@ -22,7 +22,7 @@
 			function doSubmit() {
 				ajaxSubmitForm("upload_form", function(resp) {
 					showMsg(resp);
-					window.location.reload();
+					setInterval("window.location.reload();", 3000);
 				});
 			}
 		</script>

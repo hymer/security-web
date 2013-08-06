@@ -13,7 +13,6 @@
 var SimpleTable = function(tableId, options) {
 	var instance = this;
 	instance.table = $('#' + tableId);
-	var imagePath = getRootPath() + '/css/images/';
 	var _default = {
 		// some default options.
 		scrollX : false,
@@ -60,10 +59,10 @@ var SimpleTable = function(tableId, options) {
 			first : true,
 			end : true,
 			go : true,
-			firstHtml : '<img src="' + imagePath + 'sy.png" />',
-			lastHtml : '<img src="' + imagePath + 'syy.png" />',
-			nextHtml : '<img src="' + imagePath + 'xyy.png" />',
-			endHtml : '<img src="' + imagePath + 'wy.png" />'
+			firstHtml : '<a href="#">首页</a>',
+			lastHtml : '<a href="#">上一页</a>',
+			nextHtml : '<a href="#">下一页</a>',
+			endHtml : '<a href="#">尾页</a>'
 		},
 		sortables : [],
 		css : {
@@ -140,7 +139,7 @@ var SimpleTable = function(tableId, options) {
 		}
 		gatherHeadInfo(instance);
 		// table header(th)
-	}
+	};
 	/**
 	 * 收集头信息
 	 */
@@ -162,7 +161,7 @@ var SimpleTable = function(tableId, options) {
 		} else {
 			buildTableHead(instance);
 		}
-	}
+	};
 	var buildTableHead = function(instance) {
 		var columns_def = instance.options.columns;
 		var thead = $("<thead></thead>");
@@ -200,11 +199,11 @@ var SimpleTable = function(tableId, options) {
 		}
 		thead.append(tr);
 		instance.table.append(thead);
-	}
+	};
 	var initParam = function(instance) {
 		var param = instance.options.adapter.initParam(instance);
 		instance.parameters = param;
-	}
+	};
 	var load = function(instance, callback) {
 		if(instance.options.listeners.beforeload()) {
 			initParam(instance);
@@ -226,7 +225,7 @@ var SimpleTable = function(tableId, options) {
 				}
 			});
 		}
-	}
+	};
 	var refresh = function(instance, response) {
 		if(response.result) {
 			// var respObj = $.fromJSON(response.data);
@@ -240,17 +239,17 @@ var SimpleTable = function(tableId, options) {
 			// do some thing, eg: alert error info.
 			alert(response.message);
 		}
-	}
+	};
 	var rebuild = function(instance) {
 		empty(instance);
 		build(instance);
-	}
+	};
 	var resetPageInfo = function(instance, pageinfo) {
 		instance.pageinfo.currentPage = pageinfo.currentPage;
 		instance.pageinfo.pageSize = pageinfo.recordsPerPage;
 		instance.pageinfo.totalPages = Math.ceil(pageinfo.totalRecords / pageinfo.recordsPerPage);
 		instance.pageinfo.totalRecords = pageinfo.totalRecords;
-	}
+	};
 	/**
 	 * build table with available data.
 	 *
@@ -310,7 +309,7 @@ var SimpleTable = function(tableId, options) {
 			instance.isScrollX = true;
 		}
 		instance.table.attr("isbuilded", true);
-	}
+	};
 	// 数据为空时显示
 	var buildEmptyTable = function(instance) {
 		var tr = $('<tr/>');
@@ -320,7 +319,7 @@ var SimpleTable = function(tableId, options) {
 		td.html(instance.options.info.emptyTable);
 		tr.append(td);
 		instance.table.append(tr);
-	}
+	};
 	// 动态设置pageSize
 	var buildSelectHtml = function(instance, pageSizeDiv) {
 		var currPageSize = instance.options.pageSize;
@@ -360,7 +359,7 @@ var SimpleTable = function(tableId, options) {
 			pageSizeDiv.append(pageSize2);
 			pageSizeDiv.append(pageSize3);
 		}
-	}
+	};
 	// 显示当前分页信息
 	var buildPageHtml = function(instance, div) {
 		var pagingInfo = instance.options.info.pagingInfo;
@@ -376,7 +375,7 @@ var SimpleTable = function(tableId, options) {
 			}
 			div.html(pagingInfo);
 		}
-	}
+	};
 	var buildPaging = function(instance) {
 		if(instance.options.paging) {
 			var div, infoDiv, first, last, next, end, input, go;
@@ -407,7 +406,7 @@ var SimpleTable = function(tableId, options) {
 				last = $(instance.options.pagingOptions.lastHtml);
 				next = $(instance.options.pagingOptions.nextHtml);
 				end = $(instance.options.pagingOptions.endHtml);
-				input = $('<input type="text" />')
+				input = $('<input type="text" />');
 				go = $('<span/>');
 
 				// first.html(instance.options.info.first);
@@ -541,7 +540,7 @@ var SimpleTable = function(tableId, options) {
 				go.parent().hide();
 			}
 		}
-	}
+	};
 	/**
 	 * add the event listener.
 	 */
@@ -558,7 +557,7 @@ var SimpleTable = function(tableId, options) {
 			}
 			instance.isAlreadyAddSortListener = true;
 		}
-	}
+	};
 	/**
 	 * selectAll & cancelAll.
 	 *
@@ -618,7 +617,7 @@ var SimpleTable = function(tableId, options) {
 				}
 			});
 		});
-	}
+	};
 	/**
 	 * 添加表头点击事件
 	 *
@@ -663,40 +662,7 @@ var SimpleTable = function(tableId, options) {
 				break;
 			}
 		}
-
-		// instance.table.find('tr th[colname="'+key+'"]')
-		// .addClass('simple-table-sortable')
-		// .attr('sortable', true)
-		// .click(function() {
-		// if (instance.sortinfo && instance.sortinfo.key == key) {
-		// instance.sortinfo.dir = instance.sortinfo.dir * (-1);
-		// } else {
-		// instance.sortinfo = {
-		// key: key,
-		// dir: 1
-		// };
-		// }
-		// var th = $(this);
-		// load(instance, function() {
-		// //TODO add classes to sorted th&td.
-		// instance.table.find('tr th').each(function() {
-		// if ($(this).attr('sortable')) {
-		// $(this).removeClass('simple-table-sort-desc');
-		// $(this).removeClass('simple-table-sort-asc');
-		// $(this).addClass('simple-table-sortable');
-		// }
-		// });
-		// th.removeClass('simple-table-sortable');
-		// if (instance.sortinfo.dir === 1) {
-		// th.removeClass('simple-table-sort-desc');
-		// th.addClass('simple-table-sort-asc');
-		// } else {
-		// th.removeClass('simple-table-sort-asc');
-		// th.addClass('simple-table-sort-desc');
-		// }
-		// });
-		// });
-	}
+	};
 	/**
 	 * 置空列表
 	 */
@@ -707,7 +673,8 @@ var SimpleTable = function(tableId, options) {
 		}
 		var tbody = instance.table.children('tbody');
 		$(tbody).remove();
-	}
+	};
+	
 	// ///////////////////////////////////////////////////////////
 	// ///// 以下为对外提供的方法的定义.
 	// ///////////////////////////////////////////////////////////
@@ -720,7 +687,7 @@ var SimpleTable = function(tableId, options) {
 		init(this);
 		load(this, callback);
 		this.isDoSearch = false;
-	}
+	};
 	/**
 	 * 设置某列显示
 	 *
@@ -735,7 +702,7 @@ var SimpleTable = function(tableId, options) {
 				break;
 			}
 		}
-	}
+	};
 	/**
 	 * 设置某列隐藏
 	 *
@@ -750,13 +717,13 @@ var SimpleTable = function(tableId, options) {
 				break;
 			}
 		}
-	}
+	};
 	/**
 	 * 取得表格里所有的数据。
 	 */
 	this.getData = function() {
 		return this.datas;
-	}
+	};
 	/**
 	 * get the selected pkcol(s).
 	 */
@@ -769,7 +736,7 @@ var SimpleTable = function(tableId, options) {
 			}
 		});
 		return cked;
-	}
+	};
 	/**
 	 * get the selected object(s).
 	 */
@@ -782,7 +749,7 @@ var SimpleTable = function(tableId, options) {
 			}
 		});
 		return objs;
-	}
+	};
 	// /////////////////////////////////////////////
 	// Executes
 	// /////////////////////////////////////////////
@@ -798,7 +765,7 @@ var SimpleTable = function(tableId, options) {
 	instance.table.data('table', instance);
 	// 返回该实例
 	return instance;
-}
+};
 /** ************ parameter adapters ***************** */
 var DefaultAdapter = function() {
 	var buildParam = function(searchDiv) {
@@ -838,7 +805,7 @@ var DefaultAdapter = function() {
 			}
 		}
 		return param;
-	}
+	};
 	this.initParam = function(tableInstance) {
 		var param = '';
 		param += ('currentPage=' + tableInstance.pageinfo.currentPage);
@@ -851,8 +818,8 @@ var DefaultAdapter = function() {
 			param += tableInstance.queryObject;
 		}
 		return param;
-	}
-}
+	};
+};
 var PMSTableAdapter = function() {
 	/**
 	 * Request Object is the data model used to communicate with server side.
@@ -879,7 +846,7 @@ var PMSTableAdapter = function() {
 			conditions : conditions
 		};
 		return queryObj;
-	}
+	};
 	var gatherData = function(container) {
 		var conditions = [];
 		var ele = container.find(':input[name]');
@@ -910,7 +877,7 @@ var PMSTableAdapter = function() {
 			}
 		});
 		return conditions;
-	}
+	};
 	// adapter must implement this method.
 	this.initParam = function(tableInstance) {
 		var param = '';
@@ -939,8 +906,8 @@ var PMSTableAdapter = function() {
 		var reqObj = new PMSRequestObject(manager, method, [$.toJSON(queryObj)]);
 		param += reqObj.toJsonString();
 		return param;
-	}
-}
+	};
+};
 // implements the adapter.
 var EPICAdapter = function() {
 	var buildQueryObj = function(tableInstance) {
@@ -953,7 +920,7 @@ var EPICAdapter = function() {
 			conditions : conditions
 		};
 		return queryObj;
-	}
+	};
 	var gatherData = function(container) {
 		var conditions = [];
 		var ele = container.find(':input[name]');
@@ -984,7 +951,7 @@ var EPICAdapter = function() {
 			}
 		});
 		return conditions;
-	}
+	};
 	// adapter must implement this method.
 	this.initParam = function(tableInstance) {
 		var queryObj = null;
@@ -1006,5 +973,5 @@ var EPICAdapter = function() {
 		tableInstance.queryObject = queryObj;
 		var param = 'query=' + $.toJSON(queryObj);
 		return param;
-	}
-}
+	};
+};

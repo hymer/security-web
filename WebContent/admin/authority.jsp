@@ -65,7 +65,6 @@
 								ops : function(v, obj) {
 									var html = '';
 									html += "<a href='javascript:doEdit(" + obj.id + ");'>修改</a>";
-									html += '&nbsp;&nbsp;<a href="javascript:doDisabled(' + obj.id + ',\'' + obj.name + '\');">禁用</a>';
 									return html;
 								}
 							},
@@ -108,10 +107,6 @@
 							fillForm("authority_add_form", data);
 							$("#authority_add_form_div").dialog("open");
 						});
-					}
-
-					function doDisabled(id, name) {
-						window.open("doDisabled：" + id + ".html");
 					}
 				</script>
 				<div id="searchDiv" style="width: 90%;">

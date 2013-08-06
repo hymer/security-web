@@ -105,20 +105,36 @@ public class FileUtils {
 		}
 	}
 
-	public static void deleteDir(File file) {
+	/**
+	 * 删除文件或文件夹
+	 * 
+	 * @param file
+	 */
+	public static void deleteFileOrDir(File file) {
 		if (file.exists()) {
 			if (file.isFile()) {
 				file.delete();
 			} else if (file.isDirectory()) {
 				File files[] = file.listFiles();
 				for (int i = 0; i < files.length; i++) {
-					deleteDir(files[i]);
+					deleteFileOrDir(files[i]);
 				}
+				file.delete();
 			}
-			file.delete();
 		} else {
-			System.out.println("待删除的文件[" + file.getName() + "]不存在！"
-					+ '\n');
+			System.out.println("待删除的文件[" + file.getName() + "]不存在！" + '\n');
+		}
+	}
+
+	/**
+	 * 删除文件或文件夹
+	 * 
+	 * @param filePath
+	 */
+	public static void deleteFileOrDir(String filePath) {
+		if (filePath != null && filePath.trim().length() > 0) {
+			File file = new File(filePath);
+			deleteFileOrDir(file);
 		}
 	}
 

@@ -38,7 +38,7 @@ public class SystemUpdater extends BaseContoller {
 				backUpFile.delete();
 			}
 			ZipUtils.compress(rootPath, backUpZip);
-			FileUtils.deleteDir(webRoot);
+			FileUtils.deleteFileOrDir(webRoot);
 			ZipUtils.unZip(zipFilePath, rootPath);
 			
 			mv = getSuccessMV(request);

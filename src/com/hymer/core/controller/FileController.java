@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hymer.core.BaseContoller;
+import com.hymer.core.entity.FileEntity;
 import com.hymer.core.model.QueryObject;
 import com.hymer.core.model.ResponseJSON;
 import com.hymer.core.service.FileService;
+import com.hymer.core.util.FileUtils;
 import com.hymer.core.util.JsonUtils;
 
 @Controller
@@ -46,12 +48,19 @@ public class FileController extends BaseContoller {
 		ResponseJSON json = new ResponseJSON();
 		String id = request.getParameter("id");
 		if (StringUtils.hasText(id)) {
+			String file = null;
 			try {
-				fileService.delete(fileService.getById(Long.parseLong(id)));
+				FileEntity entity = fileService.getById(Long.parseLong(id));
+				if (entity != null) {
+					file = entity.getRealPath();
+					fileService.delete(entity);
+				}
 				json.setMsg("删除成功!");
 			} catch (Exception e) {
 				json.setResult(false);
 				json.setMsg("文件正在使用，无法删除!");
+			} finally {
+				FileUtils.deleteFileOrDir(file);
 			}
 		} else {
 			json.setMsg("没有删除任何文件.");
