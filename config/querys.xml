@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querys>
+	<query id="configurationQuery" header="${query.task.header}"
+		clazz="com.hymer.core.entity.Preferences" orderby="createTime desc">
+		<column key="id" header="${query.task.id}" width="5%"
+			type="java.lang.Long" display="false" />
+		<column key="key" header="${query.task.id}" operator=" like " />
+		<column key="value" header="${query.task.id}" operator=" like " />
+		<column key="remarks" header="${query.task.id}" />
+	</query>
+	<query id="personQuery" clazz="com.hymer.test.entity.Person"
+		handler="defaultQueryHandler">
+		<column key="id" header="ID" width="0%" display="false" />
+		<column key="name" header="姓名" allowSearch="true" width="30%" operator=" like " />
+		<column key="email" header="Email" width="40%" allowSearch="true" operator=" like " />
+		<column key="flag" header="FLAG" width="10%" />
+	</query>
+</querys>
