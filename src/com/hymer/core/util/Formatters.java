@@ -17,15 +17,13 @@ public class Formatters {
 
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	public static final String DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	public static final SimpleDateFormat SDF = new SimpleDateFormat(
-			DEFAULT_DATE_FORMAT);
-	public static final SimpleDateFormat TSDF = new SimpleDateFormat(
-			DEFAULT_TIME_FORMAT);
 
 	public static final String formatDate(Date date) {
-		if (date == null)
-			return "";
-		return SDF.format(date);
+		return formatDate(date, DEFAULT_DATE_FORMAT);
+	}
+
+	public static final String formatTime(Date time) {
+		return formatDate(time, DEFAULT_TIME_FORMAT);
 	}
 
 	public static final String formatDate(Date date, String format) {
@@ -34,18 +32,8 @@ public class Formatters {
 		return new SimpleDateFormat(format).format(date);
 	}
 
-	public static final String formatTime(Date time) {
-		if (time == null)
-			return "";
-		return TSDF.format(time);
-	}
-
-	public static final Date parseDate(String dateString) {
-		try {
-			return SDF.parse(dateString);
-		} catch (ParseException e) {
-		}
-		return null;
+	public static final Date parseDate(String dateString) throws ParseException {
+		return parseDate(dateString, DEFAULT_DATE_FORMAT);
 	}
 
 	public static final Date parseDate(String dateString, String format)

@@ -10,10 +10,10 @@ import com.hymer.core.Configuration;
  * @author hymer
  * 
  */
-public class GmailSenderSSL extends MailSender {
+public class GMailSSLSender extends MailSender {
 
 	@Override
-	public Properties prepare() {
+	public Properties initProperties() {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", Configuration.get("mail.smtp.host"));
 		props.put("mail.smtp.socketFactory.port",
@@ -22,7 +22,9 @@ public class GmailSenderSSL extends MailSender {
 				Configuration.get("mail.smtp.socketFactory.class"));
 		props.put("mail.smtp.auth", Configuration.get("mail.smtp.auth"));
 		props.put("mail.smtp.port", Configuration.get("mail.smtp.port"));
+		props.put("mail.username", Configuration.get("mail.username"));
+		props.put("mail.password", Configuration.get("mail.password"));
 		return props;
 	}
-	
+
 }

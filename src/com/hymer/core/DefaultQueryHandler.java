@@ -52,8 +52,7 @@ public class DefaultQueryHandler implements IQueryHandler {
 	public void afterConditionsSetter(Query query, QueryObject queryObject,
 			User user) {
 		if (user != null) {
-			Role role = user.getRole();
-			if (!Role.SUPER_ROLE_FLAG.equals(role.getCode())) {
+			if (!Role.SUPER_ROLE_FLAG.equals(user.getRole().getCode())) {
 				Condition condition = new Condition("flag", -1);
 				condition.setOperator(Condition.NOT_EQ);
 				queryObject.getConditions().add(condition);

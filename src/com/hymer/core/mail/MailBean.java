@@ -20,31 +20,19 @@ public class MailBean {
 	private String subject = "No Subject";
 	// 邮件内容
 	private String content = null;
-	// 邮件发送者
-	private String fromAddress = null;
-	// private String fromAddress = "CityU.EPIC.Service";
-
 	// 附件路径列表
 	private List<String> attachments = new ArrayList<String>();
 
-	public void addAttachment(String filePath) {
-		attachments.add(filePath);
+	public void addAttachments(String... files) {
+		if (files != null && files.length > 0) {
+			for (String filePath : files) {
+				attachments.add(filePath);
+			}
+		}
 	}
 
 	public List<String> getAttachments() {
 		return attachments;
-	}
-
-	public void setAttachments(List<String> attachments) {
-		this.attachments = attachments;
-	}
-
-	public String getFromAddress() {
-		return fromAddress;
-	}
-
-	public void setFromAddress(String fromAddress) {
-		this.fromAddress = fromAddress;
 	}
 
 	public String getToAddress() {
@@ -81,7 +69,7 @@ public class MailBean {
 
 	public String getContent() {
 		return content
-				+ "<br/><br/><br/>----------------------------------------<br/><font color='green'>系统邮件，请勿回复。</font>";
+				+ "<div style='clear:both;'><br/><br/><br/>----------------------------------------<br/><font color='green'>系统邮件，请勿回复。</font></div>";
 	}
 
 	public void setContent(String content) {

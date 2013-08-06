@@ -12,7 +12,7 @@ import com.hymer.core.BaseEntity;
 import com.hymer.core.IQueryHandler;
 import com.hymer.core.SpringHelper;
 
-@JsonIgnoreProperties({"clazz", "queryHandler"})
+@JsonIgnoreProperties({ "clazz", "queryHandler" })
 public class Query {
 
 	private Log log = LogFactory.getLog(getClass());
@@ -194,11 +194,13 @@ public class Query {
 					queryHandler = SpringHelper.getBean(handlerClass);
 				} catch (Exception e2) {
 					log.info(e2.getMessage());
-					try {
-						// 最后通过类生成实例
-						queryHandler = handlerClass.newInstance();
-					} catch (Exception e1) {
-						log.info(e1.getMessage());
+					if (handlerClass != null) {
+						try {
+							// 最后通过类生成实例
+							queryHandler = handlerClass.newInstance();
+						} catch (Exception e1) {
+							log.info(e1.getMessage());
+						}
 					}
 				}
 			}

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.hymer.core.mail.GmailSenderSSL;
+import com.hymer.core.mail.GMailSSLSender;
 
 @Component
 public class Configuration {
@@ -17,7 +17,7 @@ public class Configuration {
 		put("upload.path", "C:/uploads/");
 
 		//mail
-		put("mail.sender", GmailSenderSSL.class.getName());
+		put("mail.sender", GMailSSLSender.class.getName());
 		put("mail.username", "test.hymer@gmail.com");
 		put("mail.password", "hymer.test");
 		

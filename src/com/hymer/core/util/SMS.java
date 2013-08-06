@@ -68,10 +68,11 @@ public class SMS {
 			resultCode = new String(post.getResponseBodyAsString().getBytes(
 					"gbk"));
 			post.releaseConnection();
+			return Integer.parseInt(resultCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Integer.parseInt(resultCode);
+		return -1;
 	}
 	
 }

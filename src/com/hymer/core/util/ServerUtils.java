@@ -74,9 +74,8 @@ public class ServerUtils {
 			byte[] mac = ni.getHardwareAddress();
 			String sIP = address.getHostAddress();
 			String sMAC = "";
-			Formatter formatter = new Formatter();
 			for (int i = 0; i < mac.length; i++) {
-				sMAC = formatter.format(Locale.getDefault(), "%02X%s", mac[i],
+				sMAC = new Formatter().format(Locale.getDefault(), "%02X%s", mac[i],
 						(i < mac.length - 1) ? "-" : "").toString();
 			}
 			result = "IP：" + sIP + BR;
